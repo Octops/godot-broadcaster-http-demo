@@ -1,0 +1,19 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://ServerListScreen.tscn" type="PackedScene" id=2]
+[ext_resource path="res://Game.gd" type="Script" id=3]
+
+[node name="Game" type="Node"]
+script = ExtResource( 3 )
+
+[node name="Lobby" parent="." instance=ExtResource( 2 )]
+
+[node name="Leave" type="Button" parent="."]
+visible = false
+margin_left = 973.0
+margin_top = 3.0
+margin_right = 1078.0
+margin_bottom = 23.0
+text = "Leave"
+
+[connection signal="button_down" from="Leave" to="." method="_on_Leave_button_down"]
