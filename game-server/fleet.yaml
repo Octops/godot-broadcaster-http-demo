@@ -2,7 +2,7 @@ apiVersion: agones.dev/v1
 kind: Fleet                                                                                                                                                                                                        
 metadata:
                                                                                                                                                                                                                                                                                                                                                                                                        
-  name: godot-map1-deathmatch                                                                                                                                                                                        
+  name: godot-life-chatroom                                                                                                                                                                                        
   namespace: default                                                                                                                                                                                                                                                                                                                                                                
 spec:                                                                                                                                                                                                              
   replicas: 2                                                                                                                                                                                                      
@@ -15,8 +15,8 @@ spec:
   template:                                                                                                                                                                                                        
     metadata:                                                                                                                                                                                                      
       labels:
-        mode: deathmatch
-        map: map_1       
+        mode: life-chatroom
+        map: life-room       
     spec:
       players:
         initialCapacity: 4                                                                                                                                                                                                        
@@ -31,16 +31,16 @@ spec:
           containers:                                                                                                                                                                                              
           - image: godot-game-server                                                                                                                                                                                             
             imagePullPolicy: Never                                                                                                                                                                                 
-            name: simple-game-server
+            name: godot-life-chatroom
 ---
 apiVersion: "autoscaling.agones.dev/v1"
 kind: FleetAutoscaler
 metadata:
-  name: godot-map1-deathmatch
+  name: godot-life-chatroom
 spec:
   # The name of the fleet to attach to and control. Must be an existing Fleet in the same namespace
   # as this FleetAutoscaler
-  fleetName: godot-map1-deathmatch
+  fleetName: godot-life-chatroom
   policy:
     type: Buffer
     buffer:
@@ -51,7 +51,7 @@ spec:
 apiVersion: agones.dev/v1                                                                                                                                                                                          
 kind: Fleet                                                                                                                                                                                                        
 metadata:                                                                                                                                                                                                                                                                                                                                                                                                        
-  name: godot-map2-hidenseek
+  name: godot-work-chatroom
   namespace: default                                                                                                                                                                                                                                                                                                                                                                
 spec:                                                                                                                                                                                                              
   replicas: 2                                                                                                                                                                                                      
@@ -64,8 +64,8 @@ spec:
   template:                                                                                                                                                                                                        
     metadata:
       labels:
-        mode: hidenseek   
-        map: map_2                                                                                                                                                                                                                                                                                                                                                                                        
+        mode: work-chatroom   
+        map: work-room                                                                                                                                                                                                                                                                                                                                                                                        
     spec:
       players:
         initialCapacity: 4                                                                                                                                                                                                          
@@ -80,16 +80,16 @@ spec:
           containers:                                                                                                                                                                                              
           - image: godot-game-server                                                                                                                                                                                             
             imagePullPolicy: Never                                                                                                                                                                                 
-            name: simple-game-server
+            name: godot-work-chatroom
 ---
 apiVersion: "autoscaling.agones.dev/v1"
 kind: FleetAutoscaler
 metadata:
-  name: godot-map2-hidenseek
+  name: godot-work-chatroom
 spec:
   # The name of the fleet to attach to and control. Must be an existing Fleet in the same namespace
   # as this FleetAutoscaler
-  fleetName: godot-map2-hidenseek
+  fleetName: godot-work-chatroom
   policy:
     type: Buffer
     buffer:
