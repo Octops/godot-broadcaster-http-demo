@@ -1,0 +1,98 @@
+apiVersion: agones.dev/v1                                                                                                                                                                                          
+kind: Fleet                                                                                                                                                                                                        
+metadata:
+                                                                                                                                                                                                                                                                                                                                                                                                       
+  name: godot-map1-deathmatch                                                                                                                                                                                        
+  namespace: default                                                                                                                                                                                                                                                                                                                                                                
+spec:                                                                                                                                                                                                              
+  replicas: 2                                                                                                                                                                                                      
+  scheduling: Packed                                                                                                                                                                                               
+  strategy:                                                                                                                                                                                                        
+    rollingUpdate:                                                                                                                                                                                                 
+      maxSurge: 25%                                                                                                                                                                                                
+      maxUnavailable: 25%                                                                                                                                                                                          
+    type: RollingUpdate                                                                                                                                                                                            
+  template:                                                                                                                                                                                                        
+    metadata:                                                                                                                                                                                                      
+      labels:
+        mode: deathmatch
+        map: map_1       
+    spec:
+      players:
+        initialCapacity: 4                                                                                                                                                                                                        
+      health:
+        disabled: true
+      ports:                                                                                                                                                                                                       
+      - name: default                                                                                                                                                                                              
+        portPolicy: Passthrough                                                                                                                                                                                    
+      sdkServer: {}                                                                                                                                                                                                
+      template:                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               
+        spec:                                                                                                                                                                                                      
+          containers:                                                                                                                                                                                              
+          - image: godot-game-server                                                                                                                                                                                             
+            imagePullPolicy: Never                                                                                                                                                                                 
+            name: simple-game-server
+---
+apiVersion: "autoscaling.agones.dev/v1"
+kind: FleetAutoscaler
+metadata:
+  name: godot-map1-deathmatch
+spec:
+  # The name of the fleet to attach to and control. Must be an existing Fleet in the same namespace
+  # as this FleetAutoscaler
+  fleetName: godot-map1-deathmatch
+  policy:
+    type: Buffer
+    buffer:
+      bufferSize: 20%
+      minReplicas: 2
+      maxReplicas: 100
+---
+apiVersion: agones.dev/v1                                                                                                                                                                                          
+kind: Fleet                                                                                                                                                                                                        
+metadata:                                                                                                                                                                                                                                                                                                                                                                                                        
+  name: godot-map2-hidenseek
+  namespace: default                                                                                                                                                                                                                                                                                                                                                                
+spec:                                                                                                                                                                                                              
+  replicas: 2                                                                                                                                                                                                      
+  scheduling: Packed                                                                                                                                                                                               
+  strategy:                                                                                                                                                                                                        
+    rollingUpdate:                                                                                                                                                                                                 
+      maxSurge: 25%                                                                                                                                                                                                
+      maxUnavailable: 25%                                                                                                                                                                                          
+    type: RollingUpdate                                                                                                                                                                                            
+  template:                                                                                                                                                                                                        
+    metadata:
+      labels:
+        mode: hidenseek   
+        map: map_2                                                                                                                                                                                                                                                                                                                                                                                        
+    spec:
+      players:
+        initialCapacity: 4                                                                                                                                                                                                          
+      health:
+        disabled: true
+      ports:
+      - name: default                                                                                                                                                                                              
+        portPolicy: Passthrough                                                                                                                                                                                    
+      sdkServer: {}                                                                                                                                                                                                
+      template:                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          
+        spec:                                                                                                                                                                                                      
+          containers:                                                                                                                                                                                              
+          - image: godot-game-server                                                                                                                                                                                             
+            imagePullPolicy: Never                                                                                                                                                                                 
+            name: simple-game-server
+---
+apiVersion: "autoscaling.agones.dev/v1"
+kind: FleetAutoscaler
+metadata:
+  name: godot-map2-hidenseek
+spec:
+  # The name of the fleet to attach to and control. Must be an existing Fleet in the same namespace
+  # as this FleetAutoscaler
+  fleetName: godot-map2-hidenseek
+  policy:
+    type: Buffer
+    buffer:
+      bufferSize: 20%
+      minReplicas: 2
+      maxReplicas: 100
