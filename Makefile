@@ -4,7 +4,7 @@ export KUBECONFIG=./kubeconfig
 help:
 	@grep -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) | sort | awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-30s\033[0m %s\n", $$1, $$2}'
 
-build-clients:
+build-clients: ## Builds clients for linux, windows and mac
 	@docker build -t godot-client-builder -f game-client/Dockerfile game-client/
 	@docker run -v ${PWD}/game-client/:/data/ godot-client-builder --path /data/ --export --quiet windows /data/builds/windows/game.exe
 	@docker run -v ${PWD}/game-client/:/data/ godot-client-builder --path /data/ --export --quiet osx /data/builds/mac/game.zip

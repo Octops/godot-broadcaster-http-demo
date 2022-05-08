@@ -10,3 +10,6 @@ make start
 ```
 
 ## Building clients
+```
+make build-clients
+```
