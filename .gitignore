@@ -1,0 +1,7 @@
+kubeconfig
+Builds/*
+builds/*
+**/builds/*
+.import
+**/.import
+.DS_store
