@@ -1,6 +1,6 @@
 extends Control
 
-var server_addr = "localhost"
+var server_addr : String = "localhost"
 var server_port : int = 7778
 
 var connection : NetworkedMultiplayerENet = NetworkedMultiplayerENet.new()
@@ -37,6 +37,6 @@ puppet func receive_message(message : String) -> void:
 func send_message(message : String) -> void:
 	rpc_id(1, "peer_send_message", message)
 
-func _on_Send_button_down():
+func _on_Send_button_down() -> void:
 	send_message($MessageBox.text)
 	$MessageBox.text = ""

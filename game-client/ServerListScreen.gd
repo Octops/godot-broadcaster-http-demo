@@ -5,7 +5,7 @@ var gameservers = {}
 const url = "http://localhost:30000/api/gameservers"
 signal join_server(server_ip, port)
 
-func _on_Refresh_button_down():
+func _on_Refresh_button_down() -> void:
 	$HTTPRequest.request(url)
 
 
