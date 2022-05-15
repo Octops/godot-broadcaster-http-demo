@@ -1,6 +1,12 @@
 ## Godot broadcaster-http demo
 This repo is a demo lobby and chat app made with Godot, hosted using Agones and using [Octops agones-broadcaster-http](https://github.com/Octops/agones-broadcaster-http) to fetch game servers information
 
+
+## Demo
+
+![godot-demo](https://user-images.githubusercontent.com/12124856/168469896-135f124d-1690-4603-ac78-239963224892.gif)
+
+
 ## Requirements
 - Docker
 
