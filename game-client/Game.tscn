@@ -14,7 +14,7 @@ margin_right = 6.0
 margin_bottom = 24.0
 
 [node name="Chat" parent="." instance=ExtResource( 1 )]
-margin_left = 663.0
-margin_top = 18.0
-margin_right = 663.0
-margin_bottom = 18.0
+margin_left = 647.0
+margin_top = 16.0
+margin_right = 647.0
+margin_bottom = 16.0
