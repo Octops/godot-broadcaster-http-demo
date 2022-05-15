@@ -20,11 +20,14 @@ func _process(delta):
 	if Input.is_action_just_pressed("ui_accept"):
 		if $MessageBox.text != "":
 			send_message($MessageBox.text)
-			$MessageBox.text = ""
+			clear_chat()
 
 func leave_chat() -> void:
 	$Chat.clear()
 	receive_message("You left the room")
+
+func clear_chat() -> void:
+	$MessageBox.text = ""
 
 func connect_to_server(server_ip : String , port : int) -> void:
 	if server_ip != "" and str(port) != "":
@@ -40,6 +43,7 @@ func connect_to_server(server_ip : String , port : int) -> void:
 	set_network_master(1)
 	
 func _on_connected_to_server() -> void:
+	clear_chat()
 	receive_message("You connected to the chat room! send a warm hello :)")
 
 puppet func receive_message(message : String) -> void:
