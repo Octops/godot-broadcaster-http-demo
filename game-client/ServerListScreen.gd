@@ -5,6 +5,9 @@ var gameservers = {}
 const url = "http://localhost:30000/api/gameservers"
 signal join_server(server_ip, port)
 
+func _ready():
+	_on_Refresh_button_down()
+
 func _on_Refresh_button_down() -> void:
 	$HTTPRequest.request(url)
 
@@ -24,6 +27,7 @@ func _on_HTTPRequest_request_completed(result, response_code, headers, body):
 		print("No gameservers running")
 
 	$Grid.clear()
+	var previous_selected_item = 0
 	for gs in b.gameservers:
 		var map = gs.labels.map
 		var mode = gs.labels.mode
@@ -34,6 +38,11 @@ func _on_HTTPRequest_request_completed(result, response_code, headers, body):
 		grid_item  += "      State: %s" % gs.state
 		$Grid.add_item(grid_item)
 		gameservers[grid_item] = gs
+		if grid_item == selected_server:
+			previous_selected_item = $Grid.get_item_count()
+			$Grid.select(previous_selected_item - 1)
+	$Grid.sort_items_by_text()
+	
 
 
 func _on_Join_button_down():
@@ -47,10 +56,12 @@ func _on_Join_button_down():
 
 	var port = gameservers[selected_server]['port']
 	emit_signal("join_server", ip, port)
-	self.visible = false
 
 
 func _on_Grid_item_selected(index):
 	selected_server = $Grid.get_item_text(index)
 
 
+
+func _on_RefreshTimer_timeout():
+	$HTTPRequest.request(url)

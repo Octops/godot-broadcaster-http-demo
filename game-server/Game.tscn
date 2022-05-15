@@ -4,4 +4,4 @@
 
 [node name="Game" type="Node"]
 
-[node name="World" parent="." instance=ExtResource( 2 )]
+[node name="Chat" parent="." instance=ExtResource( 2 )]
