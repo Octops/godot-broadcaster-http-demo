@@ -8,13 +8,28 @@
 script = ExtResource( 3 )
 
 [node name="Lobby" parent="." instance=ExtResource( 2 )]
-margin_left = 6.0
-margin_top = 25.0
-margin_right = 6.0
-margin_bottom = 24.0
+margin_left = 1.0
+margin_top = 20.0
+margin_right = 1.0
+margin_bottom = 19.0
 
 [node name="Chat" parent="." instance=ExtResource( 1 )]
 margin_left = 647.0
 margin_top = 16.0
 margin_right = 647.0
 margin_bottom = 16.0
+
+[node name="Instructions" type="Control" parent="."]
+margin_right = 40.0
+margin_bottom = 40.0
+
+[node name="Label" type="Label" parent="Instructions"]
+margin_left = 33.0
+margin_top = 475.0
+margin_right = 519.0
+margin_bottom = 577.0
+text = "How to:
+- Select a server from the list and click Join
+- You'll be connected to a gameserver running in Agones
+- Type any messages you like and hit ENTER to send
+- Hit ESC to disconnect from the room"
