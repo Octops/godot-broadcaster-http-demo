@@ -15,6 +15,7 @@ func _process(delta):
 		if connection.get_connection_status() == NetworkedMultiplayerPeer.CONNECTION_DISCONNECTED:
 			return
 		connection.close_connection()
+		get_tree().set_network_peer(null)
 		leave_chat()
 	
 	if Input.is_action_just_pressed("ui_accept"):
@@ -43,7 +44,7 @@ func connect_to_server(server_ip : String , port : int) -> void:
 	set_network_master(1)
 	
 func _on_connected_to_server() -> void:
-	clear_chat()
+	$MessageBox.text = ""
 	receive_message("You connected to the chat room! send a warm hello :)")
 
 puppet func receive_message(message : String) -> void:
