@@ -10,26 +10,9 @@ func _ready():
 	AgonesSDK.start()
 	get_tree().connect('network_peer_disconnected', self, '_on_player_disconnected')
 	get_tree().connect('network_peer_connected', self, '_on_player_connected')
-	AgonesSDK.connect("agones_response", self, "_on_agones_response")
-	AgonesSDK.gameserver()
-	
-
-func _on_agones_response(success, endpoint, dict) -> void:
-	if endpoint != "/gameserver":
-		return
-	
-	if not success:
-		AgonesSDK.gameserver()
-		print("Retrying request to endpoint%s failed" % [endpoint])
-		return
-
-	if not dict.result.status.has("ports"):
-		print("Agones didn't send back any ports, retrying")
-		AgonesSDK.gameserver()
-		return
-
-	var port = dict.result.status.ports[0].port
-	print("Should be starting at port %s" % port)
+	var port = yield(AgonesSDK.get_ports(), "completed")
+	if port == -1:
+		get_tree().quit()
 	host_server(port, max_allowed_peers)
 
 func time_now() -> String:
