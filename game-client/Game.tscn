@@ -1,5 +1,6 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=4 format=2]
 
+[ext_resource path="res://Chat.tscn" type="PackedScene" id=1]
 [ext_resource path="res://ServerListScreen.tscn" type="PackedScene" id=2]
 [ext_resource path="res://Game.gd" type="Script" id=3]
 
@@ -7,13 +8,28 @@
 script = ExtResource( 3 )
 
 [node name="Lobby" parent="." instance=ExtResource( 2 )]
+margin_left = 1.0
+margin_top = 20.0
+margin_right = 1.0
+margin_bottom = 19.0
 
-[node name="Leave" type="Button" parent="."]
-visible = false
-margin_left = 973.0
-margin_top = 3.0
-margin_right = 1078.0
-margin_bottom = 23.0
-text = "Leave"
+[node name="Chat" parent="." instance=ExtResource( 1 )]
+margin_left = 647.0
+margin_top = 16.0
+margin_right = 647.0
+margin_bottom = 16.0
 
-[connection signal="button_down" from="Leave" to="." method="_on_Leave_button_down"]
+[node name="Instructions" type="Control" parent="."]
+margin_right = 40.0
+margin_bottom = 40.0
+
+[node name="Label" type="Label" parent="Instructions"]
+margin_left = 33.0
+margin_top = 475.0
+margin_right = 519.0
+margin_bottom = 577.0
+text = "How to:
+- Select a server from the list and click Join
+- You'll be connected to a gameserver running in Agones
+- Type any messages you like and hit ENTER to send
+- Hit ESC to disconnect from the room"

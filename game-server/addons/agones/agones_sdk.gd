@@ -45,18 +45,34 @@ func ready(retry = 10, wait_time = 2.0):
 func health():
 	agones_sdk_post("/health", {})
 
-
 func reserve(seconds: int):
 	agones_sdk_post("/reserve", {"seconds": seconds})
-
 
 func allocate():
 	agones_sdk_post("/allocate", {})
 
-
 func shutdown():
 	agones_sdk_post("/shutdown", {})
 
+func get_ports(retry = 10, wait_time = 2.0):
+	var real_retry = max(1, retry + 1)
+	var i = 0
+	var success = false
+	var res
+	while i < real_retry:
+		gameserver()
+		res = yield(self, "agones_response")
+		if res[0] and res[1] == "/gameserver" or has_port() == false:
+			success = true
+			break
+		else:
+			print("[AGONES] gameserver failed. trying again (attempt %d/%d)" % [i+1, real_retry-1])
+			yield(get_tree().create_timer(wait_time), "timeout")
+			i += 1
+	if not success:
+		return -1
+
+	return res[2].result.status.ports[0].port
 
 func gameserver():
 	agones_sdk_get("/gameserver")

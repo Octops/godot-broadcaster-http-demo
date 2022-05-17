@@ -1,7 +1,9 @@
 kubeconfig
-Builds/*
-builds/*
-**/builds/*
+**/builds/*/*.pck
+**/builds/*/*.exe
+**/builds/*/*.zip
+**/builds/*/*.x86_64
+**/builds/*/*.app
 .import
 **/.import
 .DS_store
